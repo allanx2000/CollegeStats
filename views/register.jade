@@ -1,0 +1,42 @@
+extends layout
+
+block content
+    h1 New User Registration
+
+    if(errors !== undefined)
+        ul
+            each e in errors
+                li=e
+
+    form(name='register', method='post')
+        table
+            tr
+                td
+                    label Username:
+                td
+                    if(previous === undefined)
+                        input(type="text", name="username")
+                    else
+                        input(type="text", name="username", value="#{previous.username}")
+            tr
+                td
+                    label Password:
+                td
+                    input(type="password", name = "pwd")
+            tr
+                td
+                    label Confirm:
+                td
+                    input(type="password", name = "cpwd")
+            tr
+                td
+                    label Email:
+                td
+                    if(previous === undefined)
+                        input(type="text", name="email")
+                    else
+                        input(type="text", name="email", value="#{previous.email}")
+
+            tr
+                td(colspan=2)
+                    input(type="submit", value="Register" )
