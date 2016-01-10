@@ -63,14 +63,14 @@ function returnRegistrationError(req, res, errors) {
         previous: req.body,
         errors: errors
     }
-    res.render("register");
+    res.render("register", {title: "Register"});
 }
 
 //NOTE: Order matters
 router.get('/register', function(req, res, next)
 {
     //if logged in, redirect?
-    res.render("register");
+    res.render("register", {title: "Register"});
 });
 
 //TODO: Add session state and user info to req?

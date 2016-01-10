@@ -16,6 +16,12 @@ module.exports.createObject = function (args, message) {
     return {args: args, msg: message};
 }
 
+module.exports.lettersAndSpacesOnly = function (name) {
+    var val = module.exports.createObject(["/^[a-zA-Z\s]*$/"], name + "can only contain letters and numbers");
+    return val;
+}
+
+
 module.exports.stripDetails = function(errors) {
     //errors is Array of Objects containing message
 
