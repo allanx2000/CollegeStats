@@ -88,6 +88,11 @@ models.Career = db.define("Career", {
         ]
     });
 
+models.User = require("./models/user")(db, models);
+
+console.log(models.User)
+
+/*
 models.User = db.define("User", {
 
         //TODO: Add Mapping relationship and table from User to Degree/Universities
@@ -144,7 +149,7 @@ models.User = db.define("User", {
                 fields: ['email']
             }
         ]
-    });
+ });*/
 
 db.sync().then(function () {
     console.log("Created")

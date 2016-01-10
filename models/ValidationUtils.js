@@ -1,3 +1,6 @@
+module.exports.emailError = function () {
+    return "The email entered is invalid."
+};
 
 module.exports.notAlphanumeric = function(name)
 {
@@ -9,20 +12,26 @@ module.exports.lengthError = function(name, min, max)
     return name + " must be between " + min + " and " + max + " characters";
 }
 
+module.exports.createObject = function (args, message) {
+    return {args: args, msg: message};
+}
+
 module.exports.stripDetails = function(errors) {
-    //errors is Array
+    //errors is Array of Objects containing message
+
     msgs = [];
 
-    console.log(errors.length)
     for (var i = 0; i < errors.length; i++)
     {
         var item = errors[i];
 
-        if (typeof(item) === "string")
+        /*if (typeof(item) === "string")
             msgs.push(item)
         else //Is validator error
-            msgs.push(item.message);
+         */
+
+        msgs.push(item.message);
     }
-    console.log(msgs);
+
     return msgs;
 };

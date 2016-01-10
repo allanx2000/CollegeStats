@@ -1,30 +1,39 @@
 var Sequelize = require('sequelize')
-var MAX_USER = 20
-var MIN_USER = 5;
-var HASH_LENGTH = 56;
+var Val = require("./ValidationUtils");
 
-module.exports = function(sequelize)
-{
-    var user
-
-    models.User = db.define("User", {
-      id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+module.exports = function (db, models) {
+    return db.define("User", {
+            id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
             username: {
-                type: Sequelize.STRING(MAX_USER),
+                type: Sequelize.STRING(20),
                 allowNull: false,
+                validate: {
+                    isAlphanumeric: Val.createObject([true], Val.notAlphanumeric("Username")),
+                    len: Val.createObject([5, 20], Val.lengthError("Username", 5, 20))
+                }
             },
             hash: {
-                type: Sequelize.STRING(HASH_LENGTH),
+                type: Sequelize.STRING(56),
                 allowNull: false,
+                validate: {len: [56, 56]}
             },
-            salt: {type: Sequelize.STRING(14),
+            salt: {
+                type: Sequelize.STRING(14),
                 allowNull: false,
-                validate: {len: [14, 14]}},
-            email: {type: Sequelize.STRING(100),
+                validate: {len: [14, 14]}
+            },
+
+            email: {
+                type: Sequelize.STRING(100),
                 allowNull: false,
-                validate: {isEmail: true}},
-            userType: {type: Sequelize.INTEGER,
-                allowNull: true, defaultValue: null},
+                validate: {
+                    isEmail: Val.createObject([true], Val.emailError())
+                }
+            },
+            userType: {
+                type: Sequelize.INTEGER,
+                allowNull: true, defaultValue: null
+            },
             careerId: {
                 type: Sequelize.INTEGER,
                 allowNull: true, defaultValue: null,
@@ -51,8 +60,4 @@ module.exports = function(sequelize)
                 }
             ]
         });
-
-
-
-    return user;
 }
