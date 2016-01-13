@@ -9,10 +9,11 @@ var bodyParser = require('body-parser');
 var ValidatorUtil = require('./models/ValidationUtils');
 var session = require("express-session");
 //External Controllers/Routes
-var routes = require('./routes/index');
+var routes = require('./routes/root');
 var users = require('./routes/users');
 
 var Sequelize = require('sequelize')
+var State = require("./models/StateUtils");
 
 var app = express();
 
@@ -55,13 +56,6 @@ db.sync().then(function () {
     console.log("Created")
 });
 
-app.use(function (req, res, next) {
-    req.db = db;
-    req.dbModels = models;
-    req.validator = ValidatorUtil;
-    next();
-});
-
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -77,15 +71,6 @@ var sessionConfig = {
     saveUninitialized: false,
 };
 
-/*
- if (!IS_PROD)
- {
-
- }
- else
- {
-
- }*/
 app.use(session(sessionConfig));
 
 /*app.use(require("less-middleware"))(
@@ -94,6 +79,20 @@ app.use(session(sessionConfig));
  compress: true
  }
  )*/
+
+//Must be at end
+app.use(function (req, res, next) {
+    req.db = db;
+    req.dbModels = models;
+    req.validator = ValidatorUtil;
+
+    res.locals = {}
+
+    res.locals.loggedIn = State.isLoggedIn(req);
+
+    next();
+});
+
 
 //Routers and Paths
 app.use(express.static(path.join(__dirname, 'public')));

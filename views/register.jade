@@ -3,11 +3,9 @@ extends layout
 block content
     div(class='container')
 
+        h2 Register
 
-        h1 New User Registration
-
-        div(class='col-md-4')
-
+        div(class='col-xs-12, col-sm-12, col-md-4')
             if(errors !== undefined)
                 ul
                     each e in errors
@@ -36,3 +34,4 @@ block content
                         input(type="text", name="email", value="#{previous.email}")
 
                 input(type="submit", value="Register" )
+

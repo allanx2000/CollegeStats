@@ -1,6 +1,8 @@
 doctype html
 html
     head
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+
         title= title
         //link(rel='stylesheet', href='/stylesheets/style.css')
         //link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -11,7 +13,35 @@ html
 
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
         script(src='/bootstrap/js/bootstrap.min.js')
-
-        //TODO: need to add the JS and jquery
     body
+        //Logo Here?
+
+        nav(class='navbar navbar-default')
+
+            div(class='container-fluid')
+                div(class='navbar-header')
+                    //TODO: Collapsed button
+                    a(class='navbar-brand' href="#") Logo
+
+                div(class='collapse navbar-collapse')
+                    ul(class="nav navbar-nav")
+                        //TODO: also set active in MW
+                        //TODO: Add middleware to set the logged in buttons
+                        if (loggedIn)
+                            li
+                                a(href='#') My Profile
+                        else
+                            li
+                                a(href='/register') Register
+                            li
+                                a(href='/login') Login
+                        li
+                            a(href='#') About
+
+                        li
+                            //TODO: Make search box
+                            a(href='#') Search
+
+
+
         block content
