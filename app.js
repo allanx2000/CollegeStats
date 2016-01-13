@@ -88,6 +88,13 @@ var sessionConfig = {
  }*/
 app.use(session(sessionConfig));
 
+/*app.use(require("less-middleware"))(
+ {
+ src: __dirname + "/public",
+ compress: true
+ }
+ )*/
+
 //Routers and Paths
 app.use(express.static(path.join(__dirname, 'public')));
 

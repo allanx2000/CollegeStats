@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var Sequelize = require('sequelize')
+var User = require('./../models/User')
+var HashUtils = require('./../models/HashUtils')
+
 
 /* GET users listing matching criteria*/
 router.post('/', function(req, res, next) {
@@ -26,25 +28,22 @@ function processRegistration(req, res, next) {
     if (req.body.pwd != req.body.cpwd)
         errors.push("The passwords do not match");
 
+    var salt = HashUtils.generateSalt();
+    console.log(salt);
+    var hash = HashUtils.createHash(req.body.pwd, salt)
+    console.log(hash);
+
     var user = req.dbModels.User.create(
             {
                 username: req.body.username,
                 email: req.body.email,
-                hash: getHash(req.body.pwd),
-                salt: getSalt(req.body.username),
+                hash: hash,
+                salt: salt,
             })
             .then(function (model) {
                 //Already saved
-                res.render("/"); //TODO: Change to confirmation page
+            res.redirect("/"); //TODO: Change to confirmation page
             })
-/*            .catch(Sequelize.ValidationError, function (err) {
-                errors = errors.concat(err);
-
-                console.log(JSON.stringify(err, null, 2));
-
-                returnRegistrationError(req, res, errors);
-            })
-*/
             .catch(function(err)
             {
                 var err = req.validator.stripDetails(err.errors);

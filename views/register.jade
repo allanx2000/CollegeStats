@@ -1,33 +1,38 @@
 extends layout
 
 block content
-    h1 New User Registration
+    div(class='container')
 
-    if(errors !== undefined)
-        ul
-            each e in errors
-                li=e
-    div(class='col-md-3')
-        form(name='register', role='form-horizontal', method='post')
-            div(class='form-group')
-                label(for='username', class='col-sm-3 control-label') Username
 
-                if(previous === undefined)
-                    input(type="text", class='.form-control', name="username")
-                else
-                    input(type="text", class='.form-control', name="username", value="#{previous.username}")
+        h1 New User Registration
 
-            div(class='form-group')
-                label(for='password', class='col-sm-3 control-label') Password
-                input(type="password", name = "pwd")
-            div(class='form-group')
-                label(for='cpwd', class='col-sm-3 control-label') Confirm
-                input(type="password", name = "cpwd")
-            div(class='form-group')
-                label(for='cpwd', class='col-sm-3 control-label') Email
-                if(previous === undefined)
-                    input(type="text", name="email")
-                else
-                    input(type="text", name="email", value="#{previous.email}")
+        div(class='col-md-4')
 
-            input(type="submit", value="Register" )
+            if(errors !== undefined)
+                ul
+                    each e in errors
+                        li=e
+
+            form(name='register', role='form-horizontal', method='post')
+                div(class='form-group')
+                    label(for='username', class='col-sm-3 control-label') Username
+
+                    if(previous === undefined)
+                        input(type="text", class='.form-control', name="username")
+                    else
+                        input(type="text", class='.form-control', name="username", value="#{previous.username}")
+
+                div(class='form-group')
+                    label(for='password', class='col-sm-3 control-label') Password
+                    input(type="password", name = "pwd")
+                div(class='form-group')
+                    label(for='cpwd', class='col-sm-3 control-label') Confirm
+                    input(type="password", name = "cpwd")
+                div(class='form-group')
+                    label(for='cpwd', class='col-sm-3 control-label') Email
+                    if(previous === undefined)
+                        input(type="text", name="email")
+                    else
+                        input(type="text", name="email", value="#{previous.email}")
+
+                input(type="submit", value="Register" )

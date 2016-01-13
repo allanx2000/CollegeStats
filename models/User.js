@@ -1,39 +1,6 @@
 var Sequelize = require('sequelize')
 var Val = require("./ValidationUtils");
-var crypto = require("crypto");
-
-//Hash: SHA-224 generates a 224-bit hash value. You can use CHAR(56) or BINARY(28)
-
-var crypto = require('crypto');
-
-var SaltLength = 9;
-
-function createHash(password) {
-    var salt = generateSalt(SaltLength);
-    var hash = hash(password + salt);
-    return salt + hash;
-}
-
-function hash(string) {
-    return crypto.createHash('sha224').update(string).digest('hex');
-}
-
-function validateHash(hash, password) {
-    var salt = hash.substr(0, SaltLength);
-    var validHash = salt + hash(password + salt);
-    return hash === validHash;
-}
-
-function generateSalt(len) {
-    var set = '0123456789abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ',
-        setLen = set.length,
-        salt = '';
-    for (var i = 0; i < len; i++) {
-        var p = Math.floor(Math.random() * setLen);
-        salt += set[p];
-    }
-    return salt;
-}
+var HashUtils = require("./HashUtils");
 
 module.exports = function (db, models) {
     return db.define("User", {
@@ -52,9 +19,9 @@ module.exports = function (db, models) {
                 validate: {len: [56, 56]}
             },
             salt: {
-                type: Sequelize.STRING(14),
+                type: Sequelize.STRING(HashUtils.saltLength),
                 allowNull: false,
-                validate: {len: [14, 14]}
+                validate: {len: [HashUtils.saltLength, HashUtils.saltLength]}
             },
 
             email: {
@@ -83,13 +50,6 @@ module.exports = function (db, models) {
             netWorth: {type: Sequelize.INTEGER}, //Slash trailing 1000 or range/scale?
         },
         {
-            classMethods: {
-                hash: createHash,
-                validate: validateHash
-            },
-
-            //instanceMethods: {},
-
             indexes: [
                 {
                     unique: true,
