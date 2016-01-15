@@ -1,14 +1,18 @@
 var UUID = "UUID"; //UserId
 
+module.exports.getUserId = function (req) {
+    if (req.session !== undefined && req.session[UUID] !== undefined) {
+        return req.session[UUID]
+    }
+    else
+        return null;
+}
 module.exports.isLoggedIn = function (req) {
 
     if (req.session !== undefined && req.session[UUID] !== undefined) {
-        console.log("LoggedIn")
         return true;
     }
     else {
-        console.log("Not LoggedIn: " + req.session)
-
         return false;
     }
 }

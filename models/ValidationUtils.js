@@ -1,5 +1,5 @@
 module.exports.emailError = function () {
-    return "The email entered is invalid."
+    return "The email entered is invalid"
 };
 
 module.exports.notAlphanumeric = function(name)

@@ -47,43 +47,38 @@ function processRegistration(req, res, next) {
 }
 
 function returnRegistrationError(req, res, errors) {
+    var vals = getLocalsForRegister(req.body, errors);
+    vals["errors"] = errors;
 
-    res.locals =
-    {
-        previous: req.body,
-        errors: errors
-    }
-    res.render("register", {title: "Register"});
+    res.render("register", vals);
 }
 
 
+//Routes
 router.post('/register', processRegistration);
 
-//NOTE: Order matters
 router.get('/register', function (req, res, next) {
-    //if logged in, redirect?
-    res.render("register", State.setBasicPageName("Register", res));
+
+    if (State.isLoggedIn(req))
+        res.redirect("/profile");
+
+    res.render("register", getLocalsForRegister());
 });
 
+function getLocalsForRegister(prev) {
+    return {
+        title: "Register",
+        email: prev === undefined ? "" : prev.email,
+        username: prev === undefined ? "" : prev.username,
+    }
+}
+
 router.get('/login', function (req, res, next) {
-    //TODO: Check logged in
+    if (State.isLoggedIn(req))
+        res.redirect("/profile");
 
     res.render('login', {title: "Login"})
 })
-
-//TODO: Remove
-router.get("/session", function (req, res, next) {
-    res.json(req.session)
-})
-
-router.get('/logout', function (req, res, next) {
-
-    if (State.isLoggedIn(req))
-        State.logout(req)
-
-    return res.redirect("/");
-});
-
 
 router.post('/login', function (req, res, next) {
     var pwd = req.body.pwd;
@@ -91,20 +86,48 @@ router.post('/login', function (req, res, next) {
 
     req.dbModels.User.findOne({where: {username: user}})
         .then(function (info) {
-            if (info === null)
-                return next(new Error("User not found")) //NOTE: Important to use return otherwise it falls though
+            var hasError = false;
+            if (info === null || !Hashing.validateHash(info.hash, info.salt, pwd)) {
+                State.setLocalVariable("error", "The username or password is incorrect", res);
+                hasError = true;
+            }
+            else if (info.userType === null) {
+                State.setLocalVariable("notVerified", true, res);
+                hasError = true;
+            }
 
-            var valid = Hashing.validateHash(info.hash, info.salt, pwd);
-
-            if (valid) {
+            if (!hasError) {
                 State.login(info, req);
-
                 res.redirect("/");
             }
-            else
-                res.redirect("/login"); //TODO: Error handling
+            else {
+                res.render("login");
+            }
         })
 });
+
+router.get('/logout', function (req, res, next) {
+    if (State.isLoggedIn(req))
+        State.logout(req)
+
+    return res.redirect("/");
+});
+
+router.get("/profile", function (req, res, next) {
+    if (!State.isLoggedIn(req))
+        res.redirect("/");
+
+    State.setBasicPageName("My Profile", res)
+    res.render("profile");
+})
+
+//TODO: Remove
+router.get("/session", function (req, res, next) {
+
+    res.json(req.session)
+})
+
+
 
 
 module.exports = router;

@@ -5,33 +5,30 @@ block content
 
         h2 Register
 
-        div(class='col-xs-12, col-sm-12, col-md-4')
+        div
             if(errors !== undefined)
                 ul
                     each e in errors
                         li=e
 
-            form(name='register', role='form-horizontal', method='post')
+            form(name='register', class='form-horizontal', method='post')
                 div(class='form-group')
-                    label(for='username', class='col-sm-3 control-label') Username
-
-                    if(previous === undefined)
-                        input(type="text", class='.form-control', name="username")
-                    else
-                        input(type="text", class='.form-control', name="username", value="#{previous.username}")
+                    label(for='username', class='control-label col-sm-2') Username
+                    div(class='col-sm-4')
+                        input(type="text", class='form-control', name="username", value="#{username}")
 
                 div(class='form-group')
-                    label(for='password', class='col-sm-3 control-label') Password
-                    input(type="password", name = "pwd")
+                    label(for='password', class='control-label col-sm-2') Password
+                    div(class='col-sm-4')
+                        input(class='form-control', type="password", name = "pwd")
                 div(class='form-group')
-                    label(for='cpwd', class='col-sm-3 control-label') Confirm
-                    input(type="password", name = "cpwd")
+                    label(for='cpwd', class='control-label col-sm-2') Confirm
+                    div(class='col-sm-4')
+                        input(class='form-control', type="password", name = "cpwd")
                 div(class='form-group')
-                    label(for='cpwd', class='col-sm-3 control-label') Email
-                    if(previous === undefined)
-                        input(type="text", name="email")
-                    else
-                        input(type="text", name="email", value="#{previous.email}")
+                    label(for='cpwd', class='control-label col-sm-2') Email
+                    div(class='col-sm-4')
+                        input(class='form-control', type="text", name="email", value="#{email}")
 
-                input(type="submit", value="Register" )
-
+                div(class='form-actions col-sm-offset-3')
+                    input(class='btn btn-primary' type="submit", value="Register" )

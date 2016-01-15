@@ -6,12 +6,12 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var ValidatorUtil = require('./models/ValidationUtils');
 var session = require("express-session");
 //External Controllers/Routes
 var routes = require('./routes/root');
-var users = require('./routes/users');
+var users = require('./routes/user');
 
+var ValidatorUtil = require('./models/ValidationUtils');
 var Sequelize = require('sequelize')
 var State = require("./models/StateUtils");
 
@@ -52,6 +52,12 @@ models.Job = require("./models/Job")(db, models);
 models.Career = require("./models/Career")(db, models);
 models.User = require("./models/User")(db, models);
 
+var Education = require("./models/Education")
+models.School = Education.school(db, models);
+models.DegreeType = Education.degreeType(db, models);
+models.Degree = Education.degree(db, models);
+models.Education = Education.education(db, models);
+
 db.sync().then(function () {
     console.log("Created")
 });
@@ -88,7 +94,8 @@ app.use(function (req, res, next) {
 
     res.locals = {}
 
-    res.locals.loggedIn = State.isLoggedIn(req);
+    //Check logged in
+    State.setLocalVariable("user", State.getUserId(req), res)
 
     next();
 });

@@ -6,10 +6,12 @@ block content
 
         div(class='col-md-4')
 
-            if(errors !== undefined)
-                ul
-                    each e in errors
-                        li=e
+            //Error box
+            div
+                if true === notVerified
+                    p The email address has not been verified. #[a(href='#') Click here] to resend the email.
+                else if error !== undefined
+                    p=error
 
             form(name='login', role='form-horizontal', method='post')
                 div(class='form-group')

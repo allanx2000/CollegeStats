@@ -1,0 +1,66 @@
+extends layout
+
+block content
+    div(class='container')
+
+        h2 My Profile
+
+        div(class='row')
+            h3 Basic Information
+
+            form(class='form-horizontal')
+                input(type='hidden' name='action' value='info')
+
+                div(class='form-group')
+                    label(for='email', class='control-label col-sm-2') Email
+                    div(class='col-sm-4')
+                        input(class='form-control', type='text', value=email, name='email')
+                        p(class='help-block') If the address is changed, a verification email will be sent. The change will be made AFTER it is verified.
+                div(class='form-group')
+                    label(class='control-label col-sm-2') Net Worth
+                    //TODO: Make Combo, Select
+                    div(class='col-sm-4')
+                        input(class='form-control', type="text", name = "netWorth", value=netWorth)
+                div(class='form-group')
+                    label(for='job', class='control-label col-sm-2') Current Job
+                    div(class='col-sm-2')
+                        div(class='input-group')
+                            input(class='form-control', type="text", name = "job", value=job)
+                div(class='form-group')
+                    label(for='salary', class='control-label col-sm-2') Current Salary
+                    div(class='col-sm-2')
+                        div(class='input-group')
+                            div(class="input-group-addon") $
+                            input(class='form-control', type='text', value=salary, name='salary')
+                            div(class="input-group-addon") ,000
+
+                div(class='form-actions col-sm-offset-3')
+                    input(class='btn btn-primary' type="submit", value="Update")
+
+        div(class='row')
+            div(class='col-sm-8 clearfix')
+                h3 Education
+
+                table(class='table table-striped')
+                    th Type
+                    th Year
+                    th School
+                    th Major(s)
+                    th Minor
+                    th Actions
+
+                    tr
+                        td(colspan=6)
+                            p(class='text-center') None
+
+                    //TODO: Add Existing here
+
+                    tr
+                        //TODO: make it a special color
+                        td(colspan=6)
+                            p(class='text-center') #[a(href='#') Add Education]
+                a(class='col-sm-offset-4 btn btn-primary' href='#') See How I Compare!
+
+        //div(class='row')
+            div(class='col-sm-offset-2')
+                a(class='col-sm-offset-2 btn btn-primary' href='#') See How I Compare!

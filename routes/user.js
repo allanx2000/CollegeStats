@@ -6,8 +6,6 @@ router.post('/', function(req, res, next) {
     s.send('respond with a resource');
 });
 
-//TODO: Add session state and user info to req?
-
 //For Testing
 //Real one should just be static url load with logged in user (PRofile page)
 router.get('/:id', function(req, res, next) {
