@@ -1,27 +1,26 @@
 var express = require('express');
 var router = express.Router();
+var State = require("../helpers/StateUtils");
 
-/* GET users listing matching criteria*/
-router.post('/', function(req, res, next) {
-    s.send('respond with a resource');
+router.post('/addEducation', function (req, res, next) {
 });
 
-//For Testing
-//Real one should just be static url load with logged in user (PRofile page)
-router.get('/:id', function(req, res, next) {
-
-    //TODO: if not logged in, seesion == null, reject
-    //
-    req.dbModels.User.findOne({where: {id: req.params.id}})
-        .then(function(user) {
-            if (user === null)
-                return next(new Error("User not found")) //NOTE: Important to use return otherwise it falls though
-            //TODO: Check numeric or not even should allow user lookup by ID, except for self
-
-            res.json(user);
-        }
-    );
+router.post('/editEducation', function (req, res, next) {
 });
 
+router.get('/addEducation', function (req, res, next) {
+    res.render("editEducation", makeTemplate());
+})
+/*
+ function makeTemplate(data)
+ {
+ var isEdit = data === undefined;
+
+ return
+ {
+ title: isEdit ? "Edit" : "Add" + " Education",
+ school: isEdit ? //Make a DAO Class
+ }
+ }*/
 
 module.exports = router;

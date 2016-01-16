@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 var User = require('./../models/User')
-var Hashing = require('./../models/HashUtils')
-var State = require('./../models/StateUtils')
+var Hashing = require('./../helpers/HashUtils')
+var State = require('./../helpers/StateUtils')
+var DAO = require('./../helpers/DAO');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -84,26 +85,26 @@ router.post('/login', function (req, res, next) {
     var pwd = req.body.pwd;
     var user = req.body.username;
 
-    req.dbModels.User.findOne({where: {username: user}})
-        .then(function (info) {
-            var hasError = false;
-            if (info === null || !Hashing.validateHash(info.hash, info.salt, pwd)) {
-                State.setLocalVariable("error", "The username or password is incorrect", res);
-                hasError = true;
-            }
-            else if (info.userType === null) {
-                State.setLocalVariable("notVerified", true, res);
-                hasError = true;
-            }
+    DAO.getUserData(req, user, function (info) {
+        var hasError = false;
 
-            if (!hasError) {
-                State.login(info, req);
-                res.redirect("/");
-            }
-            else {
-                res.render("login");
-            }
-        })
+        if (info === null || !Hashing.validateHash(info.hash, info.salt, pwd)) {
+            State.setLocalVariable("error", "The username or password is incorrect", res);
+            hasError = true;
+        }
+        else if (info.userType === null) {
+            State.setLocalVariable("notVerified", true, res);
+            hasError = true;
+        }
+
+        if (!hasError) {
+            State.login(info, req);
+            res.redirect("/");
+        }
+        else {
+            res.render("login");
+        }
+    });
 });
 
 router.get('/logout', function (req, res, next) {
@@ -114,11 +115,27 @@ router.get('/logout', function (req, res, next) {
 });
 
 router.get("/profile", function (req, res, next) {
-    if (!State.isLoggedIn(req))
-        res.redirect("/");
 
-    State.setBasicPageName("My Profile", res)
-    res.render("profile");
+    var user = State.getUserId(req)
+    if (user === null)
+        return res.redirect("/");
+
+    DAO.getUserData(req, user, function (data) {
+            console.log(JSON.stringify(data))
+            State.setBasicPageName("My Profile", res)
+            State.setLocalVariable("email", data.email, res)
+            State.setLocalVariable("netWorth", data.netWorth, res)
+            State.setLocalVariable("currentSalary", data.currentSalary, res)
+
+            res.render("profile");
+        },
+        function (error) {
+            console.log(JSON.stringify(error))
+            res.send(error);
+        }
+    )
+
+
 })
 
 //TODO: Remove

@@ -18,20 +18,26 @@ block content
                         p(class='help-block') If the address is changed, a verification email will be sent. The change will be made AFTER it is verified.
                 div(class='form-group')
                     label(class='control-label col-sm-2') Net Worth
-                    //TODO: Make Combo, Select
                     div(class='col-sm-4')
-                        input(class='form-control', type="text", name = "netWorth", value=netWorth)
+                        select(id="netWorth" class='form-control')
+                            option(value=0, selected=netWorth === 0) Not Set
+                            option(value=1, selected=netWorth === 1) &lt; $100,000
+                            option(value=2, selected=netWorth === 2) $100,001 - 400,000
+                            option(value=3, selected=netWorth === 3) $400,001 - 1 million
+                            option(value=4, selected=netWorth === 4) $1 million - 5 million
+                            option(value=5, selected=netWorth === 5) &gt; $5 million
+                //input(class='form-control', type="text", name = "netWorth", value=netWorth)
                 div(class='form-group')
                     label(for='job', class='control-label col-sm-2') Current Job
                     div(class='col-sm-2')
                         div(class='input-group')
                             input(class='form-control', type="text", name = "job", value=job)
                 div(class='form-group')
-                    label(for='salary', class='control-label col-sm-2') Current Salary
+                    label(for='currentSalary', class='control-label col-sm-2') Current Salary
                     div(class='col-sm-2')
                         div(class='input-group')
                             div(class="input-group-addon") $
-                            input(class='form-control', type='text', value=salary, name='salary')
+                            input(class='form-control', type='text', value=currentSalary, name='currentSalary')
                             div(class="input-group-addon") ,000
 
                 div(class='form-actions col-sm-offset-3')

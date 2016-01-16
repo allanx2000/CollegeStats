@@ -1,5 +1,5 @@
 var Sequelize = require('sequelize')
-var Val = require("./ValidationUtils");
+var Val = require("./../helpers/ValidationUtils");
 
 module.exports = function (db, models) {
     model = db.define("Job", {

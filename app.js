@@ -11,9 +11,9 @@ var session = require("express-session");
 var routes = require('./routes/root');
 var users = require('./routes/user');
 
-var ValidatorUtil = require('./models/ValidationUtils');
+var ValidatorUtil = require('./helpers/ValidationUtils');
 var Sequelize = require('sequelize')
-var State = require("./models/StateUtils");
+var State = require("./helpers/StateUtils");
 
 var app = express();
 

@@ -1,6 +1,6 @@
 var Sequelize = require('sequelize')
-var Val = require("./ValidationUtils");
-var HashUtils = require("./HashUtils");
+var Val = require("./../helpers/ValidationUtils");
+var HashUtils = require("./../helpers/HashUtils");
 
 module.exports = function (db, models) {
     return db.define("User", {
