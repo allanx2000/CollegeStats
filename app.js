@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var session = require("express-session");
 //External Controllers/Routes
 var routes = require('./routes/root');
-var users = require('./routes/user');
+var user = require('./routes/user');
 
 var ValidatorUtil = require('./helpers/ValidationUtils');
 var Sequelize = require('sequelize')
@@ -105,7 +105,7 @@ app.use(function (req, res, next) {
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/user', user);
 app.use('/test/:username', function (req, res, next) {
     res.send(req.params.username);
     next();

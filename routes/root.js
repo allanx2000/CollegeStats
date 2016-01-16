@@ -114,29 +114,6 @@ router.get('/logout', function (req, res, next) {
     return res.redirect("/");
 });
 
-router.get("/profile", function (req, res, next) {
-
-    var user = State.getUserId(req)
-    if (user === null)
-        return res.redirect("/");
-
-    DAO.getUserData(req, user, function (data) {
-            console.log(JSON.stringify(data))
-            State.setBasicPageName("My Profile", res)
-            State.setLocalVariable("email", data.email, res)
-            State.setLocalVariable("netWorth", data.netWorth, res)
-            State.setLocalVariable("currentSalary", data.currentSalary, res)
-
-            res.render("profile");
-        },
-        function (error) {
-            console.log(JSON.stringify(error))
-            res.send(error);
-        }
-    )
-
-
-})
 
 //TODO: Remove
 router.get("/session", function (req, res, next) {

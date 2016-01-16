@@ -31,9 +31,6 @@ html
                     ul(class="nav navbar-nav")
                         //TODO: also set active in MW
                         //TODO: Add middleware to set the logged in buttons
-                        if (loggedIn)
-                            li
-                                a(href='/profile') My Profile
                         li
                             a(href='#') About
 
@@ -44,12 +41,12 @@ html
                     ul(class='nav navbar-nav navbar-right')
                         if (user === null)
                             li
-                                a(href='/register') Register
-                            li
                                 a(href='/login') Login
+                            li
+                                a(href='/register') Register
                         else
                             li
-                                a(href='/profile')=user
+                                a(href='/user/profile')=user
                             li
                                 a(href='/logout') (Logout)
 
