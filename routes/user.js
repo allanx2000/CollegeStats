@@ -10,25 +10,64 @@ router.post('/editEducation', function (req, res, next) {
 });
 
 router.get('/addEducation', function (req, res, next) {
-    res.render("editEducation", makeTemplate());
+    res.render("editEducation", makeTemplate(req));
 })
 
-/*
- function makeTemplate(data)
- {
- var isEdit = data === undefined;
+function makeTemplate(req, data) {
+    var isEdit = data !== undefined;
 
- return
- {
- title: isEdit ? "Edit" : "Add" + " Education",
- school: isEdit ? //Make a DAO Class
+    var locals = {
+        title: isEdit ? "Edit" : "Add" + " Education",
+    };
+
+    if (isEdit) {
+        DAO.getSchoolById(req, data.schoolId, function (r) {
+            locals["school"] = r.name;
+
+            return locals;
+        });
+    }
  }
- }*/
 
+router.post("/profile", function (req, res, next) {
+    var id = State.getUsername(req)
+    if (id === null)
+        return res.redirect("/");
+
+    DAO.updateUserData(req, id, function (errors) {
+        //TODO: need to get old user and check emails?
+
+        if (undefined !== errors) {
+            //console.log("Update Error: " + JSON.stringify(errors))
+
+
+            errs = []
+            //TODO: make into util
+
+            for (var i = 0; i < errors.length; i++) {
+                errs.push(errors[i].message);
+            }
+
+            console.log(JSON.stringify(errs))
+            renderProfilePage(req, res, false, errs);
+
+        }
+        else {
+            renderProfilePage(req, res, true);
+        }
+
+
+    })
+})
 
 router.get("/profile", function (req, res, next) {
+    renderProfilePage(req, res, false);
+})
 
-    var user = State.getUserId(req)
+
+function renderProfilePage(req, res, updated, errors) {
+
+    var user = State.getUsername(req)
     if (user === null)
         return res.redirect("/");
 
@@ -39,6 +78,10 @@ router.get("/profile", function (req, res, next) {
             State.setLocalVariable("netWorth", data.netWorth, res)
             State.setLocalVariable("currentSalary", data.currentSalary, res)
 
+            State.setLocalVariable("updated", updated, res)
+            State.setLocalVariable("errors", errors, res)
+
+
             res.render("profile");
         },
         function (error) {
@@ -46,9 +89,7 @@ router.get("/profile", function (req, res, next) {
             res.send(error);
         }
     )
-
-
-})
+}
 
 
 module.exports = router;

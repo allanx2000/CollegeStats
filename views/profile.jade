@@ -5,10 +5,20 @@ block content
 
         h2 My Profile
 
+        if(true === updated)
+            div
+                p Information has been updated
+        else if (undefined !== errors)
+            ul
+                each i in errors
+                    li=i
+
+
+
         div(class='row')
             h3 Basic Information
 
-            form(class='form-horizontal')
+            form(class='form-horizontal' , method='post')
                 input(type='hidden' name='action' value='info')
 
                 div(class='form-group')
@@ -19,13 +29,13 @@ block content
                 div(class='form-group')
                     label(class='control-label col-sm-2') Net Worth
                     div(class='col-sm-4')
-                        select(id="netWorth" class='form-control')
-                            option(value=0, selected=netWorth === 0) Not Set
-                            option(value=1, selected=netWorth === 1) &lt; $100,000
-                            option(value=2, selected=netWorth === 2) $100,001 - 400,000
-                            option(value=3, selected=netWorth === 3) $400,001 - 1 million
-                            option(value=4, selected=netWorth === 4) $1 million - 5 million
-                            option(value=5, selected=netWorth === 5) &gt; $5 million
+                        select(name="netWorth" class='form-control')
+                            option(value="0", selected=netWorth === 0) Not Set
+                            option(value="1", selected=netWorth === 1) &lt; $100,000
+                            option(value="2", selected=netWorth === 2) $100,001 - 400,000
+                            option(value="3", selected=netWorth === 3) $400,001 - 1 million
+                            option(value="4", selected=netWorth === 4) $1 million - 5 million
+                            option(value="5", selected=netWorth === 5) &gt; $5 million
                 //input(class='form-control', type="text", name = "netWorth", value=netWorth)
                 div(class='form-group')
                     label(for='job', class='control-label col-sm-2') Current Job
@@ -48,25 +58,35 @@ block content
                 h3 Education
 
                 table(class='table table-striped')
-                    th Type
                     th Year
+                    th Type
                     th School
                     th Major(s)
                     th Minor
-                    th Actions
+                    th Edit
 
+                    if(false)
+                        tr
+                            td(colspan=6)
+                                p(class='text-center') No college degree
+                    else
+                        - var items = [1,2,3,4]
+
+                        each i in items
+                            tr
+                            td #{i}
+                            td #{i}
+                            td #{i}
+                            td #{i}
+                            td #{i}
+                            td
+                                a(href= i + "asd") Edit
+
+                    //TODO: make it a special color
                     tr
-                        td(colspan=6)
-                            p(class='text-center') None
-
-                    //TODO: Add Existing here
-
-                    tr
-                        //TODO: make it a special color
                         td(colspan=6)
                             p(class='text-center') #[a(href='/user/addEducation') Add Education]
-                a(class='col-sm-offset-4 btn btn-primary' href='#') See How I Compare!
 
-        //div(class='row')
-            div(class='col-sm-offset-2')
-                a(class='col-sm-offset-2 btn btn-primary' href='#') See How I Compare!
+
+
+    a(class='col-sm-offset-4 btn btn-primary' href='#') See How I Compare!

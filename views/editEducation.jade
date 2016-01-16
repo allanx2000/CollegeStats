@@ -1,44 +1,53 @@
 extends layout
 
+block styles
+    link(rel='stylesheet', href='/stylesheets/live-search.css')
+
+block scripts
+    script(src='/javascripts/simpleAjax.js')
+    script(src='/javascripts/live-search.js')
+    script(src='/javascripts/editEducation.js')
+
 block content
     div(class='container')
 
         - var editText = (isEdit)? "Edit" : "Add";
 
-        h2 #(editText) Education
+        h2=editText + " Education"
 
         div
             form(name='education', class='form-horizontal', method='post')
                 div(class='form-group')
                     label(for='school', class='control-label col-sm-2') School
                     div(class='col-sm-4')
-                        input(name="school", type="text", class='form-control', value="#{school}") //TODO: Just make these null and pass over
+                        //TODO: Just make these null and pass over
+                        input(id="school", name="school", type="text", class='form-control', value=school)
 
                 div(class='form-group')
                     label(for='year', class='control-label col-sm-2') Year
                     div(class='col-sm-4')
-                        input(name="year", type="text", class='form-control', value="#{year}")
+                        input(name="year", type="text", class='form-control', value=year)
 
                 div(class='form-group')
                     label(for='degreeType', class='control-label col-sm-2') Degree Type
                     div(class='col-sm-4')
-                        input(name="degreeTypw", type="text", class='form-control', value="#(degreeType)")
+                        input(id="degreeType", name="degreeType", type="text", class='form-control', value=degreeType)
 
                 div(class='form-group')
                     label(for='major1', class='control-label col-sm-2') Major
                     div(class='col-sm-4')
-                        input(name="degreeTypw", type="text", class='form-control', value="#(major1)")
+                        input(id="major1", name="major1", type="text", class='form-control', value=major1)
 
                 div(class='form-group')
                     label(for='major2', class='control-label col-sm-2') Second Major
                     div(class='col-sm-4')
-                        input(name="degreeTypw", type="text", class='form-control', value="#(major2)")
+                        input(id="major2", name="major2", type="text", class='form-control', value=major2)
 
                 div(class='form-group')
                     label(for='minor', class='control-label col-sm-2') Minor
                     div(class='col-sm-4')
-                        input(name="degreeTypw", type="text", class='form-control', value="#(minor)")
-
+                        input(id="minor", name="minor", type="text", class='form-control', value=minor)
 
                 div(class='form-actions col-sm-offset-3')
-                    input(class='btn btn-primary' type="submit", value="#(editText)" )
+                    input(class='btn btn-primary' type="submit", value=editText )
+

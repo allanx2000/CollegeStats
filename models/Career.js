@@ -9,15 +9,19 @@ module.exports = function (db, models) {
                 allowNull: false,
                 validate: {
                     len: Val.createObject([5, 100], Val.lengthError("Career", 5, 100)),
-                    is: Val.lettersAndSpacesOnly("Career")
+                    is: Val.lettersAndSpacesOnlyError("Career")
                 }
+            },
+            lname: {
+                type: Sequelize.STRING(100),
+                allowNull: false,
             }
         },
         {
             indexes: [
                 {
                     unique: true,
-                    fields: ['name']
+                    fields: ['lname']
                 }
             ]
         });

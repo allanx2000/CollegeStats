@@ -8,7 +8,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require("express-session");
 //External Controllers/Routes
-var routes = require('./routes/root');
+var root = require('./routes/root');
 var user = require('./routes/user');
 
 var ValidatorUtil = require('./helpers/ValidationUtils');
@@ -95,7 +95,7 @@ app.use(function (req, res, next) {
     res.locals = {}
 
     //Check logged in
-    State.setLocalVariable("user", State.getUserId(req), res)
+    State.setLocalVariable("user", State.getUsername(req), res)
 
     next();
 });
@@ -104,12 +104,9 @@ app.use(function (req, res, next) {
 //Routers and Paths
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+app.use('/', root);
 app.use('/user', user);
-app.use('/test/:username', function (req, res, next) {
-    res.send(req.params.username);
-    next();
-});
+app.use('/ajax', require("./routes/ajax"));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

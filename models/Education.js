@@ -8,14 +8,19 @@ module.exports.school = function (db, models) {
             name: {
                 type: Sequelize.STRING(150),
                 allowNull: false,
+            },
+            lname: {
+                type: Sequelize.STRING(150),
+                allowNull: false,   //TODO: add length validation
             }
         },
         {
             indexes: [
                 {
                     unique: true,
-                    fields: ['name']
-                }]
+                    fields: ['lname']
+                }
+            ]
         });
 
     return model;

@@ -2,6 +2,7 @@ var Sequelize = require('sequelize')
 var Val = require("./../helpers/ValidationUtils");
 var HashUtils = require("./../helpers/HashUtils");
 
+//TODO: Make case insensitive?
 module.exports = function (db, models) {
     return db.define("User", {
             id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},

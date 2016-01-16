@@ -1,6 +1,6 @@
 var UUID = "UUID"; //UserId
 
-module.exports.getUserId = function (req) {
+module.exports.getUsername = function (req) {
     if (req.session !== undefined && req.session[UUID] !== undefined) {
         return req.session[UUID]
     }
