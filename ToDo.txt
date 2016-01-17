@@ -1,0 +1,15 @@
+-Finish Add Education
+    -Add/Lookup School
+    -Add/Lookup Field of Study
+    -Add/Lookup Job
+
+    -Add should be done during validation
+    -Add school, open Add window separately
+    -Add major, minor => just record, format to upper
+
+    Later, confirm insert/add parts first
+        -Add High school RadioButton, either HS or College
+        -if HS, disable / vice versa
+
+-Check how to use validator to validate forms and data
+

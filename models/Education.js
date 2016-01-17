@@ -106,13 +106,17 @@ module.exports.degree = function (db, models) {
             name: {
                 type: Sequelize.STRING(30),
                 allowNull: false,
+            },
+            lname: {
+                type: Sequelize.STRING(30),
+                allowNull: false,
             }
         },
         {
             indexes: [
                 {
                     unique: true,
-                    fields: ['name']
+                    fields: ['lname']
                 }
             ]
         });

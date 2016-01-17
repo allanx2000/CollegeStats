@@ -3,8 +3,88 @@ var router = express.Router();
 var State = require("../helpers/StateUtils");
 var DAO = require("../helpers/DAO");
 
+var Promise = require("bluebird");
+
 router.post('/addEducation', function (req, res, next) {
+
+    //TODO: Validate
+    var values = {};
+
+    var doPromise = function (promise, name, saveAs) {
+        return promise(req, name)
+            .then(function (data) {
+                if (data === null)
+                    return res.send("school not found");
+                else
+                    values[saveAs] = data.id;
+            })
+    }
+
+
+    var params = req.body;
+    if (params.school.length < 3) //TODO: Check min max length of all fields pre query
+        return res.send("School is required")
+
+    DAO.getSchoolByName(req, req.body.school)
+        .then(function (data) {
+            if (data === null)
+                return res.send("school not found");
+            else {
+                values["school"] = data.id;
+
+                DAO.getDegreeByName(req, req.body.major1)
+                    .then(function (data) {
+                        if (data === null)
+                            req.dbModels.Degree
+                                .create({name: req.body.major1, lname: req.body.major1.toLowerCase()})
+                                .then(function (model) {
+                                    values["major1"] = model.id;
+                                    res.json(values)
+                                }
+                            )
+                        else {
+                            values["major1"] = data.id;
+                            res.json(values)
+                        }
+                    }
+                );
+            }
+        })
+
+
+    /*
+     DAO.getSchoolByName(req, req.body.school)
+     .then(function(data) {
+     if (data === null)
+     return res.send("school not found");
+     else
+     values.school = data.id;
+     })
+     .then(DAO.getSchoolByName(req, req.body.school).then(function(data) {
+     if (typeof(data) !== "object")
+     values.major1 = null;
+     else
+     values.major1 = data.id;
+     }).then(function() { res.json(values)}))
+     */
+    /*
+     var degrees = [
+     DAO.getDegreeByName(req, req.body.major1),
+     DAO.getDegreeByName(req, req.body.major2),
+     DAO.getDegreeByName(req, req.body.minor),
+     ]
+
+     Promise.all(degrees).then(function(data)
+     {
+     console.log(JSON.stringify(data))
+     res.json(data);
+
+
+
+     })
+     })*/
 });
+
 
 router.post('/editEducation', function (req, res, next) {
 });
@@ -27,7 +107,9 @@ function makeTemplate(req, data) {
             return locals;
         });
     }
- }
+    else
+        return locals;
+}
 
 router.post("/profile", function (req, res, next) {
     var id = State.getUsername(req)
@@ -72,15 +154,13 @@ function renderProfilePage(req, res, updated, errors) {
         return res.redirect("/");
 
     DAO.getUserData(req, user, function (data) {
-            console.log(JSON.stringify(data))
-            State.setBasicPageName("My Profile", res)
+            State.setPageTitle("My Profile", res)
             State.setLocalVariable("email", data.email, res)
             State.setLocalVariable("netWorth", data.netWorth, res)
             State.setLocalVariable("currentSalary", data.currentSalary, res)
 
             State.setLocalVariable("updated", updated, res)
             State.setLocalVariable("errors", errors, res)
-
 
             res.render("profile");
         },

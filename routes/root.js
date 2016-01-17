@@ -20,9 +20,9 @@ function processRegistration(req, res, next) {
         errors.push("The passwords do not match");
 
     var salt = Hashing.generateSalt();
-    console.log(salt);
+    //console.log(salt);
     var hash = Hashing.createHash(req.body.pwd, salt)
-    console.log(hash);
+    //console.log(hash);
 
     var user = req.dbModels.User.create(
         {
@@ -41,7 +41,7 @@ function processRegistration(req, res, next) {
             var err = req.validator.stripDetails(err.errors);
             errors = errors.concat(err);
 
-            console.log("General: " + JSON.stringify(errors, null, 2));
+            //console.log("General: " + JSON.stringify(errors, null, 2));
 
             returnRegistrationError(req, res, errors);
         });

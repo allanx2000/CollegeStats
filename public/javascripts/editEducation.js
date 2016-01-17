@@ -30,27 +30,42 @@
  })*/
 
 $(document).ready(function () {
+    $("html").click(function () {
+        clearAll();
+
+    })
+
     $("#school").liveSearch({
         url: '/ajax/findSchool?school=',
         onData: function (data) {
-            return makeList(JSON.parse(data), "No schools found.")
+            return makeList(JSON.parse(data), "setSchool", "No schools found.")
         }
     });
 
-    $("html").click(function () {
-        $("#live-search-school").html("")
-    })
-
     $("#major1").liveSearch({
-        url: '/ajax/findSchool?school=',
+        url: '/ajax/findDegree?degree=',
         onData: function (data) {
-            return makeList(JSON.parse(data), "No schools found.")
+            return makeList(JSON.parse(data), "setMajor1", "No schools found.")
         }
     });
 
 })
 
-function makeList(data, noneText) {
+function clearAll() {
+    $("#live-search-school").html("");
+    $("#live-search-school").liveSearchLastValue = "";
+
+    $("#live-search-major1").html("");
+    $("#live-search-major1").liveSearchLastValue = "";
+
+    //$("#live-search-major2").html("");
+    //$("#live-search-major1").liveSearchLastValue = "";
+
+    //$("#live-search-minor").html("");
+    //$("#live-search-minor").liveSearchLastValue = "";
+}
+
+function makeList(data, functionToClick, noneText) {
 
     if (data === null || data.length === 0)
         return "<p>" + noneText + "</p>";
@@ -59,7 +74,7 @@ function makeList(data, noneText) {
     for (var i = 0; i < data.length; i++) {
         var d = data[i];
 
-        table += "<tr onclick='setSchool(this)'><td>" + d.name + "</td></tr>";
+        table += "<tr onclick='" + functionToClick + "(this)'><td>" + d.name + "</td></tr>";
     }
 
     table += "</table>";
@@ -69,6 +84,12 @@ function makeList(data, noneText) {
 
 function setSchool(element) {
     $("#school").val($(element).text())
-    $("#live-search-school").html("")
-    $("#live-search-school").liveSearchLastValue = "";
+
+    clearAll();
+}
+
+function setMajor1(element) {
+    $("#major1").val($(element).text())
+
+    clearAll();
 }

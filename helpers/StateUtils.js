@@ -27,7 +27,8 @@ module.exports.logout = function (req) {
     req.session.save();
 }
 
-module.exports.setBasicPageName = function (pageName, res) {
+
+module.exports.setPageTitle = function (pageName, res) {
     res.locals["title"] = pageName;
 }
 
