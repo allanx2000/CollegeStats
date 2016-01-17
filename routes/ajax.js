@@ -11,15 +11,11 @@ router.get('/findSchool', function (req, res, next) {
     else if (search === undefined)
         return res.json(req.query);
 
-    DAO.findSchools(req, search,
-        function (results) {
+    DAO.findSchools(req, search)
+        .then(function (results) {
             //console.log(results)
             res.json(results);
-        },
-        function (error) {
-            //console.log(error)
-            res.json(error)
-        })
+        });
 })
 
 router.get('/findDegree', function (req, res, next) {

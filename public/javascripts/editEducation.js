@@ -45,7 +45,21 @@ $(document).ready(function () {
     $("#major1").liveSearch({
         url: '/ajax/findDegree?degree=',
         onData: function (data) {
-            return makeList(JSON.parse(data), "setMajor1", "No schools found.")
+            return makeList(JSON.parse(data), "setMajor1", "")
+        }
+    });
+
+    $("#major2").liveSearch({
+        url: '/ajax/findDegree?degree=',
+        onData: function (data) {
+            return makeList(JSON.parse(data), "setMajor2", "")
+        }
+    });
+
+    $("#minor").liveSearch({
+        url: '/ajax/findDegree?degree=',
+        onData: function (data) {
+            return makeList(JSON.parse(data), "setMinor", "")
         }
     });
 
@@ -58,11 +72,11 @@ function clearAll() {
     $("#live-search-major1").html("");
     $("#live-search-major1").liveSearchLastValue = "";
 
-    //$("#live-search-major2").html("");
-    //$("#live-search-major1").liveSearchLastValue = "";
+    $("#live-search-major2").html("");
+    $("#live-search-major2").liveSearchLastValue = "";
 
-    //$("#live-search-minor").html("");
-    //$("#live-search-minor").liveSearchLastValue = "";
+    $("#live-search-minor").html("");
+    $("#live-search-minor").liveSearchLastValue = "";
 }
 
 function makeList(data, functionToClick, noneText) {
@@ -90,6 +104,18 @@ function setSchool(element) {
 
 function setMajor1(element) {
     $("#major1").val($(element).text())
+
+    clearAll();
+}
+
+function setMajor2(element) {
+    $("#major2").val($(element).text())
+
+    clearAll();
+}
+
+function setMinor(element) {
+    $("#minor").val($(element).text())
 
     clearAll();
 }

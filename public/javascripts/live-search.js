@@ -79,7 +79,7 @@ var LiveSearch = {
                     else {
                         container.innerHTML = '';
                     }
-                }, 300);
+                }, 500);
 
                 this.liveSearchLastValue = this.value;
             }
