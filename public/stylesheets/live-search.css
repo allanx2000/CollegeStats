@@ -1,0 +1,332 @@
+.live-search-wrap {
+    position: relative
+}
+
+.live-search-wrap input[type=text] {
+    width: 100%
+}
+
+.live-search-wrap div.live-search {
+    background: rgba(254, 254, 254, 0.8);
+    position: absolute;
+    left: 0;
+    top: 40px;
+    z-index: 99;
+    width: 100%;
+    height: 300px;
+    overflow: auto;
+    -webkit-transition: all .1s ease-out;
+    transition: all .1s ease-out;
+    border: 1px solid #fefefe;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4)
+}
+
+.live-search-wrap div.live-search h2 {
+    font-family: "Open Sans", sans-serif;
+    font-weight: normal;
+    font-size: 1rem;
+    line-height: 1.8;
+    letter-spacing: 0;
+    color: #444;
+    font-weight: bold;
+    padding: 10px 10px 5px
+}
+
+.live-search-wrap div.live-search ul {
+    margin: 0;
+    list-style: none
+}
+
+.live-search-wrap div.live-search ul li a {
+    display: block;
+    padding: 5px 10px;
+    color: inherit;
+    text-decoration: none
+}
+
+.live-search-wrap div.live-search ul li a:hover {
+    font-weight: bold
+}
+
+.live-search-wrap div.live-search ul li a img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle
+}
+
+.live-search-wrap div.live-search ul li:nth-child(odd) a {
+    background: rgba(249, 249, 249, 0.8)
+}
+
+.live-search-wrap div.live-search nav {
+    zoom: 1;
+    padding: 5px 10px
+}
+
+.live-search-wrap div.live-search nav:after {
+    content: "";
+    display: table;
+    clear: both
+}
+
+.live-search-wrap div.live-search nav a {
+    float: left;
+    color: inherit;
+    text-decoration: none
+}
+
+.live-search-wrap div.live-search nav a[rel=next] {
+    float: right
+}
+
+.live-search-wrap div.live-search:empty {
+    height: 0;
+    box-shadow: none
+}
+
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%
+}
+
+body {
+    margin: 0
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+    display: block
+}
+
+audio, canvas, progress, video {
+    display: inline-block;
+    vertical-align: baseline
+}
+
+audio:not([controls]) {
+    display: none;
+    height: 0
+}
+
+[hidden], template {
+    display: none
+}
+
+a {
+    background-color: transparent
+}
+
+a:active, a:hover {
+    outline: 0
+}
+
+abbr[title] {
+    border-bottom: 1px dotted
+}
+
+b, strong {
+    font-weight: bold
+}
+
+dfn {
+    font-style: italic
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0
+}
+
+mark {
+    background: #ff0;
+    color: #000
+}
+
+small {
+    font-size: 80%
+}
+
+sub, sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline
+}
+
+sup {
+    top: -0.5em
+}
+
+sub {
+    bottom: -0.25em
+}
+
+img {
+    border: 0
+}
+
+svg:not(:root) {
+    overflow: hidden
+}
+
+figure {
+    margin: 1em 40px
+}
+
+hr {
+    box-sizing: content-box;
+    height: 0
+}
+
+pre {
+    overflow: auto
+}
+
+code, kbd, pre, samp {
+    font-family: monospace, monospace;
+    font-size: 1em
+}
+
+button, input, optgroup, select, textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0
+}
+
+button {
+    overflow: visible
+}
+
+button, select {
+    text-transform: none
+}
+
+button, html input[type="button"], input[type="reset"], input[type="submit"] {
+    -webkit-appearance: button;
+    cursor: pointer
+}
+
+button[disabled], html input[disabled] {
+    cursor: default
+}
+
+button::-moz-focus-inner, input::-moz-focus-inner {
+    border: 0;
+    padding: 0
+}
+
+input {
+    line-height: normal
+}
+
+input[type="checkbox"], input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0
+}
+
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
+    height: auto
+}
+
+input[type="search"] {
+    -webkit-appearance: textfield;
+    box-sizing: content-box
+}
+
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none
+}
+
+fieldset {
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em
+}
+
+legend {
+    border: 0;
+    padding: 0
+}
+
+textarea {
+    overflow: auto
+}
+
+optgroup {
+    font-weight: bold
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+td, th {
+    padding: 0
+}
+
+html {
+    background: #fefefe;
+    font-size: 100%
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    font-weight: normal;
+    font-size: 1rem;
+    line-height: 1.8;
+    letter-spacing: 0;
+    color: #444;
+    color: #444;
+    word-wrap: break-word
+}
+
+main, aside, section, article, header, footer {
+    margin: 0 0 20px
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 0.75rem;
+    font-size: 3.2rem;
+    font-family: "Open Sans", sans-serif;
+    font-weight: lighter;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    text-transform: none;
+    color: #333
+}
+
+@media (max-width: 799px) {
+    h1, h2, h3, h4, h5, h6 {
+        font-size: 2.56rem
+    }
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: inherit
+}
+
+h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
+    text-decoration: none
+}
+
+h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+    display: block;
+    font-size: 60%;
+    letter-spacing: -1px;
+    line-height: 1.2
+}
+
+h2 {
+    font-size: 2.8rem
+}
+
+@media (max-width: 799px) {
+    h2 {
+        font-size: 2.24rem
+    }
+}
