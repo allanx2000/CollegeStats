@@ -67,6 +67,7 @@ module.exports.findSchools = function (req, search, onResult, onError) {
 
     var lower = search.toLowerCase();
 
+    //TODO: Add more details
     req.dbModels.School.findAll(
         {
             where: {lname: {$like: "%" + lower + "%"}},
