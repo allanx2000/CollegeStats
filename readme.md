@@ -1,5 +1,5 @@
-# College Stats
-Basically started some **similar to PayScale** ... but didn't know it at the time...
+# CollegeStats
+Basically started something **similar to PayScale** ... but didn't know it at the time...
 
 Spent 2-3 weeks learning **Jade, Node, Express, and Bootstrap** though so this just showcases some stuff I learned and did.
 
